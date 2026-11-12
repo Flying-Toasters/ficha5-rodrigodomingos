@@ -15,6 +15,7 @@ function App() {
   const [name, setName] = useState("");
   const [type, setType] = useState("Criatura");
   const [attack, setAttack] = useState("");
+  const [formError, setFormError] = useState(null);
   useEffect(() => {
     fetch("http://localhost:3000/api/cartas")
       .then((res) => {
@@ -75,7 +76,7 @@ function App() {
       body: JSON.stringify({ name, type, attack }),
     })
       .then((res) => {
-        if (!res.ok) throw new Error(`Erro HTTP: ${res.status}`);
+        if (!res.ok) throw new Error(`HTTP: ${res.status}`);
         return res.json();
       })
       .then((card) => {
@@ -86,8 +87,9 @@ function App() {
         setAttack("");
       })
       .catch((error) => {
-        setError(error);
+        setFormError(error);
       })
+      .catch((error) => setFormError(error.message));
   }
 
   return (
@@ -140,6 +142,7 @@ function App() {
         />
         <button type="submit">Adicionar</button>
       </form>
+      {formError && <p>{formError.message}</p>}
 
       <h2>Carta à sorte</h2>
       <button onClick={pickRandom}>Escolher outra</button>
