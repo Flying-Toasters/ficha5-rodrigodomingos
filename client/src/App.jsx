@@ -12,7 +12,9 @@ function App() {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [name, setName] = useState("");
+  const [type, setType] = useState("Criatura");
+  const [attack, setAttack] = useState("");
   useEffect(() => {
     fetch("http://localhost:3000/api/cartas")
       .then((res) => {
@@ -64,6 +66,17 @@ function App() {
 
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const card = { name, type, attack: Number(attack), defense: 0 };
+    setCards([...cards, card]);
+
+    setName("");
+    setType("Criatura");
+    setAttack("");
+  }
+
   return (
     <main>
       <h1>A minha coleção</h1>
@@ -96,6 +109,24 @@ function App() {
           ))}
         </ul>
       )}
+
+      <form onSubmit={handleSubmit}>
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Nome"
+        />
+        <select value={type} onChange={(e) => setType(e.target.value)}>
+          <option value="Criatura">Criatura</option>
+          <option value="Feitiço">Feitiço</option>
+        </select>
+        <input
+          value={attack}
+          onChange={(e) => setAttack(e.target.value)}
+          placeholder="Ataque"
+        />
+        <button type="submit">Adicionar</button>
+      </form>
 
       <h2>Carta à sorte</h2>
       <button onClick={pickRandom}>Escolher outra</button>
