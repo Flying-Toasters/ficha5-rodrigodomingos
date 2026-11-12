@@ -69,12 +69,25 @@ function App() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const card = { name, type, attack: Number(attack), defense: 0 };
-    setCards([...cards, card]);
+    fetch("http://localhost:3000/api/cartas", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, type, attack, defense }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(`Erro HTTP: ${res.status}`);
+        return res.json();
+      })
+      .then((card) => {
+        setCards([...cards, card]);
 
-    setName("");
-    setType("Criatura");
-    setAttack("");
+        setName("");
+        setType("Criatura");
+        setAttack("");
+      })
+      .catch((error) => {
+        setError(error);
+      })
   }
 
   return (

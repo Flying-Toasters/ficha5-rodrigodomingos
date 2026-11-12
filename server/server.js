@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require("cors"); 
+const cors = require("cors");
 
 const app = express();
 const PORT = 3000;
@@ -58,7 +58,7 @@ app.get("/cartas", (req, res) => {
 });
 
 app.get("/cartas/aleatoria", (req, res) => {
-   const card = cards[Math.floor(Math.random() * cards.length)];
+  const card = cards[Math.floor(Math.random() * cards.length)];
 
   res.send(page(
     "Carta à sorte",
