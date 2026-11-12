@@ -72,7 +72,7 @@ function App() {
     fetch("http://localhost:3000/api/cartas", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, type, attack, defense }),
+      body: JSON.stringify({ name, type, attack }),
     })
       .then((res) => {
         if (!res.ok) throw new Error(`Erro HTTP: ${res.status}`);
