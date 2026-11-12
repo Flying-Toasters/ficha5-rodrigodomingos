@@ -12,7 +12,8 @@ const cards = [
   { name: "Eco do Vazio", type: "Feitiço", attack: 0, defense: 0 },
 ];
 
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173" }));
+app.use(express.json());
 
 function page(title, body) {
   return `<!DOCTYPE html>
@@ -79,8 +80,13 @@ app.get("/api/cartas", (req, res) => {
   res.json(cards);
 })
 
+app.post("/api/cartas", (req, res) => {
+  const card = req.body;
+  cards.push(card);
+  res.status(201).json(card);
+})
+
 app.get("/api/cartas/aleatoria", (req, res) => {
-  res.set("Access-Control-Allow-Origin", "http://localhost:5173");
   const card = cards[Math.floor(Math.random() * cards.length)];
   res.json(card);
 })
