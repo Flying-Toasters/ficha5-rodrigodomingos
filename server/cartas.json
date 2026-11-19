@@ -33,5 +33,17 @@
     "name": "Teste",
     "type": "Criatura",
     "attack": "2"
+  },
+  {
+    "id": null,
+    "name": "Tesst",
+    "type": "Criatura",
+    "attack": "5"
+  },
+  {
+    "id": null,
+    "name": "test3",
+    "type": "Feitiço",
+    "attack": "3"
   }
 ]

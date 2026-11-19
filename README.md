@@ -20,8 +20,15 @@ npm install
 
 node --watch server.js
 
+API:
+GET /api/cartas, recebe nada, responde 200 e um array com todas as cartas
+GET /api/cartas/aleatoria, não recebe nada e responde 200 com uma cartas escolhida ao acaso
+POST /api/cartas, recebe name e type e responde 201 com uma carta criada e o seu id
+
 Questão 3:
-O browser. O pedido chega ao server e este responde, mas sem o header Access-Control-Allow-Origin, o browser não entrega a resposta. A consola mostra "blocked by CORS policy" e não um erro HTTP, pois o server não dá erros.
+O primeiro request é um OPTIONS, mandado pelo próprio browser. A razão pela qual o console.log não aparecia no terminal antes do pacote cors é por que o servidor não conseguia responder com os headers de autorização do cors, por isso o browser cancelava o POST antes de enviar; se o POST nunca chegasse, naturalmente, o console.log da rota nunca correria.
 
 Questão 4:
-A app agora faz 1 request à /api/cartas ao abrir. Ao filtrar, faz 0 requests pois já usa as cartas que estão no estado. Na Ficha 3, os dados estavam escritos no App.jsx; agora vivem no server e o server apenas manda JSON. O HTML persiste a ser construído no browser.
+setCards: a carta nova vivia na memória do browser. Era apagado quando desse refresh no browser (F5).
+POST sem ficheiro: a carta nova vivia no array cards do servidor. Agora sobrevivia ao refresh, mas era apagada ao reiniciar o servidor.
+POST com cartas.json: a carta nova vivia no ficheiro cartas.json, ou seja, no disco. Agora, nem refresh nem reiniciar o servidor deletava-a; apenas com o método DELETE ou edição manual do ficheiro. 

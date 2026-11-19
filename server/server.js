@@ -79,13 +79,15 @@ app.get("/api/cartas", (req, res) => {
 })
 
 app.post("/api/cartas", (req, res) => {
-  const { name, type } = req.body;
+  console.log("POST:", req.body);
+  const { name, type, attack } = req.body;
 
   if(!name || !type) {
     return res.status(400).json({ error: "name e type são obrigatórios" });
   }
 
-  const card = req.body;
+  const id = Math.max(0, ...cards.map((c) => c.id)) + 1;
+  const card = { id, name, type, attack };
   cards.push(card);
   fs.writeFileSync(FILE, JSON.stringify(cards, null, 2))
   res.status(201).json(card);
