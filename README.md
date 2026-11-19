@@ -6,19 +6,19 @@ Nos dois terminais, clique o botão de + e selecione Git Bash
 
 Corra os seguintes comandos no primeiro terminal:
 
-cd client
-
-npm install
-
-npm run dev
-
-Corra os seguintes comandos no segundo terminal:
-
 cd server
 
 npm install
 
 node --watch server.js
+
+Corra os seguintes comandos no segundo terminal:
+
+cd client
+
+npm install
+
+npm run dev
 
 API:
 GET /api/cartas, recebe nada, responde 200 e um array com todas as cartas
